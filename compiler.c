@@ -36,11 +36,12 @@ void program() {
 int eval() {
 	int op,*tmp;
 	while(1) {
-		if(op == IMM) {ax = *pc++;}	
-		else if(op == LC) {ax = *(char *)ax;}
-		else if(op == LI) {ax = *(int *)ax;}
-		else if(op == SC) {ax = *(char *)*sp++ = ax;}
-		else if(op == SI) {*(int *)*sp++ = ax;}
+		if(op == IMM) {ax = *pc++;}						//load immediate value to ax	
+		else if(op == LC) {ax = *(char *)ax;}			//load character to ax,address in ax
+		else if(op == LI) {ax = *(int *)ax;}			//load interger to ax,address in ax
+		else if(op == SC) {ax = *(char *)*sp++ = ax;}	//save character to address,value in ax,address on stack
+		else if(op == SI) {*(int *)*sp++ = ax;}			//save interger to address,value in ax,address on stack
+		else if(op == PUSH) {*--sp = ax;}
 	}
 	return 0;
 }
@@ -92,6 +93,7 @@ int main(int argc,char **argv) {
 
 	bp = sp = (int *)((int)stack + poolsize);
 	ax = 0;
+
 	program();
 	return eval();
 }
