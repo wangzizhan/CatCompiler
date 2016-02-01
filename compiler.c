@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<memory.h>
 #include<string.h>
+#include<sys/cdefs.h>
 
 int token; //current token 
 char *src, *old_src; //pointer to source code string
@@ -107,7 +108,7 @@ int main(int argc, char **argv) {
 	}
 
 	//read the source file 
-	if ((i == read(fd, src, poolsize - 1)) <= 0) {
+	if ((i = read(fd, src, poolsize - 1)) <= 0) {
 		printf("read() returned %d\n",i);
 		return -1;
 	}
@@ -137,7 +138,7 @@ int main(int argc, char **argv) {
 
 	bp = sp = (int *)((int)stack + poolsize);
 	ax = 0;
-	
+
 	program();
 	return eval();
 } 
